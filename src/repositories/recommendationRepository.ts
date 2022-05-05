@@ -8,6 +8,14 @@ async function create(createRecommendationData: CreateRecommendationData) {
   });
 }
 
+async function findByName(userInfos: CreateRecommendationData) {
+  return prisma.recommendation.findUnique({
+    where: {
+      name: userInfos.name
+    }
+  });
+}
+
 interface FindAllWhere {
   score: number;
   scoreFilter: "lte" | "gt";
@@ -65,6 +73,7 @@ async function remove(id: number) {
 export const recommendationRepository = {
   create,
   findAll,
+  findByName,
   find,
   updateScore,
   getAmountByScore,
