@@ -26,7 +26,8 @@ function findAll(findAllWhere?: FindAllWhere) {
 
   return prisma.recommendation.findMany({
     where: filter,
-    orderBy: { id: "desc" }
+    orderBy: { id: "desc" },
+    take: 10
   });
 }
 
