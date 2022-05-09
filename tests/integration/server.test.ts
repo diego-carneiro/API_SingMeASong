@@ -130,24 +130,36 @@ describe("GET Recommendations by Id", () => {
   });
 });
 
-// describe("GET Random Recommendations", () => {
-//   beforeEach(truncateRecommendations);
-//   afterAll(disconnect);
+describe("GET Random Recommendations", () => {
+  beforeEach(truncateRecommendations);
+  afterAll(disconnect);
 
-//   it("Must return 200 and a single random Recommendation", async () => {
-//     const allRecommendations = await dummyRecommendations();
-// console.log(allRecommendations[6]);
+  it("Must return a single random Recommendation", async () => {
+    await dummyRecommendations();
 
-//     const testingRecommendation = await prisma.recommendation.create({
-//       data: { ...allRecommendations[6], score: 320 },
-//     });
+    const promise = await supertest(app).get("/recommendations/random");
 
-//     const promise = await supertest(app).get("/recommendations/random");
+    expect(promise.status).toEqual(200);
+    expect(promise.body).toHaveProperty("id");
+  });
+});
 
-//     expect(promise.status).toEqual(200);
-//     expect(promise.body).toEqual(testingRecommendation);
-//   });
-// });
+describe("GET Recommendations by Amount", () => {
+  beforeEach(truncateRecommendations);
+  afterAll(disconnect);
+
+  it("Must return a given amount os recommendations", async () => {
+    await dummyRecommendations();
+
+    const amount = 3;
+
+    const promise = await supertest(app).get(`/recommendations/top/${amount}`);
+
+    expect(promise.status).toEqual(200);
+    expect(promise.body.length).toEqual(amount);
+    expect(promise.body[0].score).toBeGreaterThanOrEqual(promise.body[1].score);
+  });
+});
 
 async function truncateRecommendations() {
   await prisma.$executeRaw`TRUNCATE TABLE recommendations RESTART IDENTITY CASCADE;`;
