@@ -16,10 +16,10 @@ For you to install all this tools, $ npm i is needed.
 
 ### End Points
 
-POST /recommendations
-GET /recommendations
-GET /recommendations/random
-GET /recommendations/top/:amount
-GET /recommendations/:id
-POST /recommendations/:id/upvote
-POST /recommendations/:id/downvote
+POST /recommendations<br>
+GET /recommendations<br>
+GET /recommendations/random<br>
+GET /recommendations/top/:amount<br>
+GET /recommendations/:id<br>
+POST /recommendations/:id/upvote<br>
+POST /recommendations/:id/downvote<br>
