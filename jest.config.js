@@ -2,6 +2,7 @@
 export default {
   preset: "ts-jest",
   testEnvironment: "node",
+  collectCoverage: true,
   extensionsToTreatAsEsm: [".ts"],
   globals: {
     "ts-jest": {
